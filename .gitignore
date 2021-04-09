@@ -50,5 +50,5 @@ services/logstash/pipeline/.jdbc*
 
 kubernetes/api-gateway/**/*.tgz
 
-#sublime files
+# Sublime files
 *.sublime*
