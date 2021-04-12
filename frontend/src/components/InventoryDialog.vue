@@ -23,95 +23,60 @@
         <v-card-text>
           <v-container>
             <v-row>
-              <v-col
-                cols="12"
-                sm="6"
-                md="4"
-              >
-                <v-text-field
-                  label="Name*"
-                  required
-                ></v-text-field>
+              <v-col cols="12">
+                <date-selector @date-selected="onDateChanged"></date-selector>
               </v-col>
 
-<!--               
-              <v-col
-                cols="12"
-                sm="6"
-                md="4"
-              >
-                <v-text-field
-                  label="Legal middle name"
-                  hint="example of helper text only on focus"
-                ></v-text-field>
-              </v-col>
-              
-              <v-col
-                cols="12"
-                sm="6"
-                md="4"
-              >
-                <v-text-field
-                  label="Legal last name*"
-                  hint="example of persistent helper text"
-                  persistent-hint
-                  required
-                ></v-text-field>
-              </v-col>
- -->              
               <v-col cols="12">
-                <v-text-field
-                  label="Email*"
-                  required
-                ></v-text-field>
+                <v-range-slider
+                  v-model="inventoryTimes"
+                  label="Time Range"
+                  :max="24"
+                  :min="1"
+                  class="align-center"
+                >
+                  <template v-slot:append>
+                    <div class="timesDisplay">
+                      {{ inventoryTimes[0] }}:00 - {{ inventoryTimes[1] }}:00
+                    </div>
+                  </template>
+                </v-range-slider>
               </v-col>
-              
-              <v-col cols="12">
-                <v-text-field
-                  label="Password*"
-                  type="password"
-                  required
-                ></v-text-field>
-              </v-col>
-              
-              <v-col
-                cols="12"
-                sm="6"
-              >
+
+              <v-col cols="12" sm="6">
                 <v-select
-                  :items="['0-17', '18-29', '30-54', '54+']"
-                  label="Age*"
+                  :items="[2,4,6,8,10,12,14]"
+                  v-model="tableSize"
+                  label="Table Size"
                   required
                 ></v-select>
               </v-col>
-              
-              <v-col
-                cols="12"
-                sm="6"
-              >
-                <v-autocomplete
-                  :items="['Skiing', 'Ice hockey', 'Soccer', 'Basketball', 'Hockey', 'Reading', 'Writing', 'Coding', 'Basejump']"
-                  label="Interests"
-                  multiple
-                ></v-autocomplete>
+
+              <v-col cols="12" sm="6">
+                <v-text-field
+                  v-model="tableQuantity"
+                  type="number"
+                  label="Table Quantity"
+                  :min="1"
+                  :max="20"
+                  required
+                ></v-text-field>
               </v-col>
+              
             </v-row>
           </v-container>
-          <small>*indicates required field</small>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn
-            color="blue darken-1"
+          <v-btn color="blue darken-1"
             text
-            @click="dialog = false"
+            @click="clear"
           >
             Close
           </v-btn>
-          <v-btn
-            color="blue darken-1"
+          <v-btn color="blue darken-1"
             text
-            @click="dialog = false"
+            @click="submit"
           >
             Save
           </v-btn>
@@ -123,10 +88,52 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import DateSelector from '../components/DateSelector.vue'
+// import * as inventorySvc from '../services/inventory.service'
+
 export default Vue.extend({
+  components: { DateSelector },
   name: 'InventoryDialog',
   data: () => ({
     dialog: false,
+    inventoryDate: null,
+    inventoryTimes: [11,13],
+    tableQuantity: 1,
+    tableSize: 4,
   }),
+  methods: {
+    onDateChanged(val) {
+      this.inventoryDate = val;
+    },
+
+    submit () {
+      console.log('save', this.inventoryDate, this.inventoryTimes, this.tableQuantity, this.tableSize)
+
+      // TODO package up the data and post...
+      // await inventorySvc.default.setInventory({
+      //   date: this.inventoryDate,
+      //   timeRange: this.inventoryTimes,
+      //   quantity: this.tableQuantity,
+      //   size: this.tableSize
+      // })
+
+      this.dialog = false
+    },
+
+    clear () {
+      console.log('clear', this.inventoryDate, this.inventoryTimes, this.tableQuantity, this.tableSize)
+
+      this.dialog = false
+    },
+
+  }  
 })
 </script>
+<style lang="scss">
+.timesDisplay {
+  display: flex;
+  justify-content: center;
+  width: 120px;
+  margin-top: -18px;
+}
+</style>

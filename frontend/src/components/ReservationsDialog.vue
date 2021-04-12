@@ -124,7 +124,7 @@
 <script lang="ts">
 import Vue from 'vue'
 export default Vue.extend({
-  name: 'InventoryDialog',
+  name: 'ReservationsDialog',
   data: () => ({
     dialog: false,
   }),

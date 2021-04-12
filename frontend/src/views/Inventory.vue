@@ -16,38 +16,37 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue'
 import DateSelector from '../components/DateSelector.vue'
 import InventoryDialog from '../components/InventoryDialog.vue'
 // import * as inventorySvc from '../services/inventory.service'
 
-export default {
+export default Vue.extend({
   components: { DateSelector, InventoryDialog },
   name: 'Inventory',
 
-  data() {
-    return {
-      headers: [
-        {
-          text: 'col1',
-          value: 'prop1'
-        },
-        {
-          text: 'col2',
-          value: 'prop2'
-        },
-        {
-          text: 'col3',
-          value: 'prop3'
-        },
-        {
-          text: 'col4',
-          value: 'prop4'
-        }
-      ],
-      items: []
-    }
-  },
+  data: () => ({
+    headers: [
+      {
+        text: 'Date',
+        value: 'date'
+      },
+      {
+        text: 'Time',
+        value: 'time'
+      },
+      {
+        text: 'Size',
+        value: 'size'
+      },
+      {
+        text: 'Quantity',
+        value: 'quantity'
+      }
+    ],
+    items: []
+  }),
   methods: {
     async onDateChanged(val) {
       try {
@@ -60,7 +59,7 @@ export default {
       }
     }
   }
-}
+})
 </script>
 
 <style lang="scss">

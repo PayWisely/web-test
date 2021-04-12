@@ -47,6 +47,10 @@ export default Vue.extend({
     this.date = today.toISOString().substr(0, 10)
     this.formattedDate = today.toLocaleDateString(undefined, this.formattedDateOptions)
   },
+
+  // TODO validate >= today
+  // TODO allow multiple, as a parmeter
+
   watch: {
     date: function(val) {
       // console.log('selected date val', val)
