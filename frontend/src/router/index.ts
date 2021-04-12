@@ -8,7 +8,7 @@ Vue.use(VueRouter)
 const routes: Array<RouteConfig> = [
   {
     path: '/',
-    redirect: 'reservations',
+    redirect: 'reservations'
   },
   {
     path: '/reservations',
