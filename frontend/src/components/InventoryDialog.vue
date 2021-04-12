@@ -89,7 +89,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import DateSelector from '../components/DateSelector.vue'
-// import * as inventorySvc from '../services/inventory.service'
+import * as inventorySvc from '../services/inventory.service'
 
 export default Vue.extend({
   components: { DateSelector },
@@ -107,21 +107,24 @@ export default Vue.extend({
     },
 
     submit () {
-      console.log('save', this.inventoryDate, this.inventoryTimes, this.tableQuantity, this.tableSize)
+      console.log('save clicked', this.inventoryDate, this.inventoryTimes, this.tableQuantity, this.tableSize)
 
-      // TODO package up the data and post...
-      // await inventorySvc.default.setInventory({
-      //   date: this.inventoryDate,
-      //   timeRange: this.inventoryTimes,
-      //   quantity: this.tableQuantity,
-      //   size: this.tableSize
-      // })
-
-      this.dialog = false
+      inventorySvc.default.add({
+        date: this.inventoryDate,
+        timeRange: this.inventoryTimes,
+        quantity: this.tableQuantity,
+        size: this.tableSize
+      }).then(() => {
+        this.dialog = false
+      }).catch(error => {
+        // TODO display error
+        console.log('add inventory failed', error);
+      });
+      // this.dialog = false
     },
 
     clear () {
-      console.log('clear', this.inventoryDate, this.inventoryTimes, this.tableQuantity, this.tableSize)
+      console.log('clear clicked', this.inventoryDate, this.inventoryTimes, this.tableQuantity, this.tableSize)
 
       this.dialog = false
     },

@@ -20,7 +20,7 @@
 import Vue from 'vue'
 import DateSelector from '../components/DateSelector.vue'
 import InventoryDialog from '../components/InventoryDialog.vue'
-// import * as inventorySvc from '../services/inventory.service'
+import * as inventorySvc from '../services/inventory.service'
 
 export default Vue.extend({
   components: { DateSelector, InventoryDialog },
@@ -49,14 +49,9 @@ export default Vue.extend({
   }),
   methods: {
     async onDateChanged(val) {
-      try {
-        // this.items = await inventorySvc.default.getInventory({
-        //   date: val
-        // })
-        console.log('getInventory', this.items)
-      } catch (error) {
-        console.log(error)
-      }
+      // console.log('getInventory onDateChanged', val)
+      this.items = await inventorySvc.default.list(val)
+      console.log('getInventory', this.items)
     }
   }
 })
