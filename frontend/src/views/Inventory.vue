@@ -28,18 +28,18 @@ export default Vue.extend({
 
   data: () => ({
     headers: [
-      {
-        text: 'Date',
-        value: 'date'
-      },
+      // {
+      //   text: 'Date',
+      //   value: 'date'
+      // },
       {
         text: 'Time',
         value: 'time'
       },
-      {
-        text: 'Size',
-        value: 'size'
-      },
+      // {
+      //   text: 'Size',
+      //   value: 'size'
+      // },
       {
         text: 'Quantity',
         value: 'quantity'

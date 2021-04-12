@@ -49,6 +49,7 @@
                   v-model="tableSize"
                   label="Table Size"
                   required
+                  disabled
                 ></v-select>
               </v-col>
 
@@ -106,26 +107,35 @@ export default Vue.extend({
       this.inventoryDate = val;
     },
 
+    reset () {
+      this.inventoryDate = null
+      this.inventoryTimes = [11,13]
+      this.tableQuantity = 1
+      this.tableSize = 4
+    },
+
     submit () {
       console.log('save clicked', this.inventoryDate, this.inventoryTimes, this.tableQuantity, this.tableSize)
 
       inventorySvc.default.add({
         date: this.inventoryDate,
-        timeRange: this.inventoryTimes,
+        times: this.inventoryTimes,
         quantity: this.tableQuantity,
         size: this.tableSize
       }).then(() => {
+        this.reset();
         this.dialog = false
       }).catch(error => {
         // TODO display error
         console.log('add inventory failed', error);
       });
-      // this.dialog = false
     },
 
-    clear () {
-      console.log('clear clicked', this.inventoryDate, this.inventoryTimes, this.tableQuantity, this.tableSize)
+// TODO actually clear the data...
 
+    clear () {
+      console.log('clear clicked')
+      this.reset();
       this.dialog = false
     },
 

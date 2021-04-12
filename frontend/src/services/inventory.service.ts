@@ -4,20 +4,14 @@ export class InventoryService {
   http: any
 
   constructor() {
-    this.http = axios.create({ baseURL: 'http://localhost:8080/api/' })
+    this.http = axios.create({ baseURL: 'http://localhost:9090/' })
   }  
 
-  async get(url: string, queryValue: any) {
-    return await this.http.get(url, {
-        params: {
-          date: queryValue
-        }
-      }).then((response: any) => {
-        // TODO?
+  async get(url: string) {
+    return await this.http.get(url).then((response: any) => {
         console.log('inventory service get ok', response)
-        return response
+        return response.data.items
       }).catch((error: any) => {
-        // TODO?
         console.log('inventory service get error', error)
         return [];
       })
@@ -30,7 +24,6 @@ export class InventoryService {
         console.log('inventory service post ok', response)
         return response
       }).catch((error: any) => {
-        // TODO?
         console.log('inventory service post error', error)
         throw error
       })
@@ -40,7 +33,7 @@ export class InventoryService {
     return this.post('inventory/create', data)
   }
   list(query: any) {
-    return this.get('inventory', query)
+    return this.get(`inventory/${query}`)
   }
 }
 

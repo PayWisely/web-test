@@ -30,8 +30,6 @@ export default Vue.extend({
 <style lang="scss">
 #app {
   font-family: 'Roboto', sans-serif;
-  // -webkit-font-smoothing: antialiased;
-  // -moz-osx-font-smoothing: grayscale;
   height: 100vh;
 }
 .router-view-container {
