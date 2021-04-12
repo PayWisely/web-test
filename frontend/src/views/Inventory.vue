@@ -1,6 +1,7 @@
 <template>
   <div class="inventory-wrapper">
     <div>
+      <InventoryDialog />
       <date-selector @date-selected="onDateChanged"></date-selector>
     </div>
     <div>
@@ -17,10 +18,11 @@
 
 <script>
 import DateSelector from '../components/DateSelector.vue'
+import InventoryDialog from '../components/InventoryDialog.vue'
 // import * as inventorySvc from '../services/inventory.service'
 
 export default {
-  components: { DateSelector },
+  components: { DateSelector, InventoryDialog },
   name: 'Inventory',
 
   data() {
